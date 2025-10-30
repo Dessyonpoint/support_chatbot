@@ -839,7 +839,13 @@ def log_analytics(event_type: str, user_id: int, session_id: str, data: Dict, db
     db.add(analytics)
     db.commit()
 
-
+@app.get("/")
+def home():
+    return {
+        "message": "Support Chatbot API is running!",
+        "docs": "/docs",
+        "health": "/health"
+    }
 # ============================================================================
 # STARTUP
 # ============================================================================
