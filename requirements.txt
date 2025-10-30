@@ -8,6 +8,7 @@ aiofiles==24.1.0
 websockets==13.1
 
 # Database & ORM
+pydantic[email]==2.9.2
 sqlalchemy==2.0.35
 pydantic==2.9.2
 
