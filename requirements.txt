@@ -23,6 +23,7 @@ transformers==4.46.0
 sentence-transformers==3.2.1
 langdetect==1.0.9
 textblob==0.18.0.post0
+email-validator
 
 # Caching & Environment
 redis==5.1.1
