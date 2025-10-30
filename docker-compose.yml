@@ -1,0 +1,52 @@
+services:
+  app:
+    build: .
+    container_name: chatbot_app
+    restart: always
+    env_file: .env
+    depends_on:
+      - db
+      - redis
+    networks:
+      - chatbot_net
+
+  db:
+    image: postgres:16
+    container_name: chatbot_db
+    restart: always
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - chatbot_net
+
+  redis:
+    image: redis:7
+    container_name: chatbot_redis
+    restart: always
+    networks:
+      - chatbot_net
+
+  nginx:
+    image: nginx:1.25
+    container_name: chatbot_nginx
+    restart: always
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+      - "443:443"
+    depends_on:
+      - app
+    networks:
+      - chatbot_net
+
+volumes:
+  postgres_data:
+
+networks:
+  chatbot_net:
+    driver: bridge
